@@ -38,7 +38,7 @@
   }
   .app{
     max-width:560px;margin:0 auto;min-height:100%;
-    padding:env(safe-area-inset-top) 16px calc(88px + env(safe-area-inset-bottom));
+    padding:env(safe-area-inset-top) 16px calc(160px + env(safe-area-inset-bottom));
     display:flex;flex-direction:column;
   }
   /* Header */
@@ -60,7 +60,8 @@
   .view.active{display:block}
   @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-  h2.section{font-size:15px;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink-soft);margin:10px 4px 12px;font-weight:700}
+  h2.section{font-size:15px;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink-soft);margin:10px 4px 12px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+  .sel-all{font:inherit;font-size:12px;letter-spacing:.3px;text-transform:none;background:none;border:none;color:var(--accent);cursor:pointer;font-weight:700}
 
   /* Book / unit cards */
   .stack{display:flex;flex-direction:column;gap:12px}
@@ -80,19 +81,34 @@
   .book-body{display:none;border-top:1px solid var(--line)}
   .book.open .book-body{display:block}
   .unit{
-    padding:13px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;
+    padding:13px 18px;display:flex;align-items:center;gap:12px;
     border-bottom:1px solid var(--paper-2);
   }
   .unit:last-child{border-bottom:none}
-  .unit:active{background:var(--paper-2)}
-  .unit .u-t{flex:1;font-size:15px}
-  .unit .u-c{font-size:12px;color:var(--ink-soft);background:var(--paper-2);padding:3px 9px;border-radius:999px}
+  /* Checkbox */
+  .ck{
+    width:24px;height:24px;border:2px solid var(--line);border-radius:7px;flex:none;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--paper);
+    transition:.15s;font-size:15px;color:#fff;
+  }
+  .ck.on{background:var(--accent);border-color:var(--accent)}
+  .ck .tick{opacity:0;transform:scale(.6);transition:.15s}
+  .ck.on .tick{opacity:1;transform:scale(1)}
+  .u-label{flex:1;min-width:0;cursor:pointer}
+  .u-label .u-t{font-size:15px;display:block}
+  .u-label .u-c{font-size:12px;color:var(--ink-soft)}
   .unit-actions{display:flex;gap:6px}
   .mini{
-    font:inherit;font-size:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);
-    padding:6px 11px;border-radius:999px;cursor:pointer;
+    font:inherit;font-size:14px;border:1px solid var(--line);background:var(--paper);color:var(--ink);
+    width:38px;height:34px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;
   }
   .mini.accent{background:var(--accent);border-color:var(--accent);color:#fff}
+  .mini:active{transform:translateY(1px)}
+
+  .book-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:var(--paper)}
+  .text-btn{font:inherit;font-size:13px;border:none;background:none;color:var(--ink-soft);cursor:pointer;padding:4px}
+  .text-btn.accent{color:var(--accent);font-weight:600}
+  .danger{background:none;border:none;color:var(--red);font:inherit;font-size:13px;cursor:pointer;padding:4px}
 
   .add-row{margin:16px 4px 0}
   .add-book-btn{
@@ -101,9 +117,30 @@
   }
   .add-book-btn:active{background:var(--paper-2)}
 
+  /* Selection action bar (floats above nav) */
+  .selbar{
+    position:fixed;left:0;right:0;bottom:calc(70px + env(safe-area-inset-bottom));z-index:25;
+    display:none;justify-content:center;padding:0 16px;pointer-events:none;
+  }
+  .selbar.show{display:flex}
+  .selbar-inner{
+    max-width:528px;width:100%;background:var(--ink);color:#fff;border-radius:16px;
+    box-shadow:0 12px 30px -8px rgba(27,58,107,.6);padding:11px 12px 11px 16px;
+    display:flex;align-items:center;gap:10px;pointer-events:auto;
+  }
+  .selbar .cnt{font-size:14px;flex:1;font-weight:600}
+  .selbar .cnt small{display:block;font-weight:400;font-size:11.5px;opacity:.75}
+  .selbar button{
+    font:inherit;font-size:14px;font-weight:600;border:none;border-radius:11px;padding:11px 14px;cursor:pointer;
+    background:rgba(255,255,255,.16);color:#fff;display:flex;align-items:center;gap:5px;
+  }
+  .selbar button.go{background:var(--accent)}
+  .selbar button:active{transform:translateY(1px)}
+
   /* Flashcard */
   .quiz-top{display:flex;align-items:center;justify-content:space-between;padding:14px 4px;gap:10px}
   .back{font:inherit;font-size:14px;background:none;border:none;color:var(--ink-soft);cursor:pointer;padding:6px}
+  .quiz-title{font-size:13px;color:var(--ink-soft);text-align:center;margin:-6px 4px 2px;letter-spacing:.3px}
   .progress{flex:1;height:8px;background:var(--paper-2);border-radius:999px;overflow:hidden;margin:0 6px}
   .progress > i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
   .counter{font-size:13px;color:var(--ink-soft);min-width:48px;text-align:right}
@@ -197,9 +234,8 @@
   .ex{font-size:12.5px;color:var(--ink-soft);background:var(--paper-2);padding:10px 12px;border-radius:10px;margin-top:6px;line-height:1.5}
 
   .empty{text-align:center;color:var(--ink-soft);padding:50px 20px;font-size:15px}
-  .danger{background:none;border:none;color:var(--red);font:inherit;font-size:13px;cursor:pointer;padding:4px}
   .toast{
-    position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);
+    position:fixed;bottom:140px;left:50%;transform:translateX(-50%) translateY(20px);
     background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;
     opacity:0;transition:.3s;z-index:60;pointer-events:none;
   }
@@ -218,7 +254,10 @@
 
   <!-- HOME -->
   <section class="view active" id="view-home">
-    <h2 class="section">Deine Bücher</h2>
+    <h2 class="section">
+      <span>Deine Bücher</span>
+      <button class="sel-all" id="selAllBtn">Alle auswählen</button>
+    </h2>
     <div class="stack" id="bookList"></div>
     <div class="add-row">
       <button class="add-book-btn" id="addBookBtn">＋ Weiteres Buch hinzufügen</button>
@@ -232,6 +271,7 @@
       <div class="progress"><i id="flashBar"></i></div>
       <span class="counter" id="flashCounter">0/0</span>
     </div>
+    <div class="quiz-title" id="flashTitle"></div>
     <div class="flash" id="flashCard">
       <span class="lbl" id="flashLbl">Frage</span>
       <div class="word" id="flashWord"></div>
@@ -251,6 +291,7 @@
       <div class="progress"><i id="gapBar"></i></div>
       <span class="counter" id="gapCounter">0/0</span>
     </div>
+    <div class="quiz-title" id="gapTitle"></div>
     <div class="gap-card">
       <div class="gap-prompt" id="gapPrompt">Setze das passende Wort ein</div>
       <div class="gap-sentence" id="gapSentence"></div>
@@ -271,6 +312,15 @@
       <button class="add-book-btn" style="margin-top:10px" data-home>Zur Übersicht</button>
     </div>
   </section>
+</div>
+
+<!-- Selection action bar -->
+<div class="selbar" id="selbar">
+  <div class="selbar-inner">
+    <div class="cnt" id="selCnt">0 Lektionen<small>0 Vokabeln ausgewählt</small></div>
+    <button id="selFlash">🃏 Karten</button>
+    <button class="go" id="selGap">✏️ Lückentext</button>
+  </div>
 </div>
 
 <!-- Bottom nav -->
@@ -327,6 +377,7 @@ abroad = im Ausland"></textarea>
 /* ---------- Storage ---------- */
 const KEY="vokabel_books_v1";
 let books=[];
+let selected=new Set();   // ausgewählte Unit-IDs
 function load(){
   try{const r=localStorage.getItem(KEY); books = r?JSON.parse(r):structuredClone(SEED_BOOKS);}
   catch(e){books=structuredClone(SEED_BOOKS);}
@@ -342,14 +393,30 @@ function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show"
 function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
 function show(view){$$(".view").forEach(v=>v.classList.remove("active"));$("#view-"+view).classList.add("active");window.scrollTo(0,0);}
 function setNav(name){$$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.nav===name));}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+/* ---------- Word collection ---------- */
+function allWords(){return books.flatMap(b=>b.units.flatMap(u=>u.words.map(w=>({...w}))));}
+function allUnitIds(){return books.flatMap(b=>b.units.map(u=>u.id));}
+function wordsForSelection(){
+  const out=[];
+  for(const b of books)for(const u of b.units)if(selected.has(u.id))out.push(...u.words.map(w=>({...w})));
+  return out;
+}
+function selectionLabel(){
+  const names=[];
+  for(const b of books)for(const u of b.units)if(selected.has(u.id))names.push(u.title);
+  if(names.length===0)return "";
+  if(names.length===1)return names[0];
+  if(names.length<=3)return names.join(" · ");
+  return names.length+" Lektionen";
+}
 
 /* ---------- Render home ---------- */
-function allWords(){return books.flatMap(b=>b.units.flatMap(u=>u.words.map(w=>({...w,lang:b.lang}))));}
-
 function renderHome(){
   const list=$("#bookList");
   list.innerHTML="";
-  if(!books.length){list.innerHTML='<div class="empty">Noch keine Bücher.<br>Füge eins hinzu, um loszulegen.</div>';return;}
+  if(!books.length){list.innerHTML='<div class="empty">Noch keine Bücher.<br>Füge eins hinzu, um loszulegen.</div>';updateSelBar();return;}
   books.forEach(b=>{
     const total=b.units.reduce((n,u)=>n+u.words.length,0);
     const el=document.createElement("div");
@@ -365,43 +432,59 @@ function renderHome(){
       </div>
       <div class="book-body">
         ${b.units.map(u=>`
-          <div class="unit" data-unit="${u.id}">
-            <span class="u-t">${esc(u.title)}</span>
-            <span class="u-c">${u.words.length}</span>
+          <div class="unit">
+            <div class="ck ${selected.has(u.id)?'on':''}" data-toggle="${u.id}"><span class="tick">✓</span></div>
+            <div class="u-label" data-toggle="${u.id}">
+              <span class="u-t">${esc(u.title)}</span>
+              <span class="u-c">${u.words.length} Vokabeln</span>
+            </div>
             <div class="unit-actions">
-              <button class="mini" data-act="flash" data-u="${u.id}">🃏</button>
-              <button class="mini accent" data-act="gap" data-u="${u.id}">✏️</button>
+              <button class="mini" data-act="flash" data-u="${u.id}" title="Karten">🃏</button>
+              <button class="mini accent" data-act="gap" data-u="${u.id}" title="Lückentext">✏️</button>
             </div>
           </div>`).join("")}
-        <div class="unit" style="justify-content:space-between">
-          <button class="mini" data-addunit="${b.id}">＋ Lektion / Vokabeln</button>
+        <div class="book-foot">
+          <button class="text-btn accent" data-addunit="${b.id}">＋ Lektion / Vokabeln</button>
           <button class="danger" data-delbook="${b.id}">Buch löschen</button>
         </div>
       </div>`;
     el.querySelector(".book-head").onclick=()=>el.classList.toggle("open");
     list.appendChild(el);
   });
+  updateSelBar();
 }
-function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+/* ---------- Selection bar ---------- */
+function updateSelBar(){
+  const bar=$("#selbar");
+  const n=selected.size;
+  if(n===0){bar.classList.remove("show");$(".app").style.paddingBottom="";return;}
+  const wc=wordsForSelection().length;
+  $("#selCnt").innerHTML=`${n} ${n===1?'Lektion':'Lektionen'}<small>${wc} Vokabeln ausgewählt</small>`;
+  bar.classList.add("show");
+  // "Alle auswählen"-Button-Text anpassen
+  const allSel = allUnitIds().length>0 && allUnitIds().every(id=>selected.has(id));
+  $("#selAllBtn").textContent = allSel ? "Auswahl aufheben" : "Alle auswählen";
+}
 
 /* ---------- Lookup ---------- */
 function findUnit(uid){for(const b of books){const u=b.units.find(x=>x.id===uid);if(u)return{book:b,unit:u};}return null;}
 
 /* ---------- Flashcards ---------- */
-let fc={cards:[],i:0,again:[]};
+let fc={cards:[],i:0,again:[],label:""};
 function startFlash(words,label){
-  if(!words.length){toast("Keine Vokabeln vorhanden");return;}
-  fc={cards:shuffle(words),i:0,again:[]};
-  show("flash");setNav(label||"");renderFlash();
+  if(!words.length){toast("Bitte zuerst Lektionen auswählen");return;}
+  fc={cards:shuffle(words),i:0,again:[],label:label||""};
+  show("flash");renderFlash();
 }
 function renderFlash(){
   const c=fc.cards[fc.i];
   const card=$("#flashCard");card.classList.remove("flipped");
-  // zufällig Richtung: mal Fremdwort→Deutsch, mal umgekehrt
   if(c._dir===undefined)c._dir=Math.random()<0.5?0:1;
   if(c._dir===0){$("#flashLbl").textContent="Fremdsprache";$("#flashWord").textContent=c.fr;$("#flashAnswer").textContent=c.de;}
   else{$("#flashLbl").textContent="Deutsch";$("#flashWord").textContent=c.de;$("#flashAnswer").textContent=c.fr;}
   $("#flashRate").classList.add("hidden");
+  $("#flashTitle").textContent=fc.label;
   $("#flashCounter").textContent=`${fc.i+1}/${fc.cards.length}`;
   $("#flashBar").style.width=(fc.i/fc.cards.length*100)+"%";
 }
@@ -418,29 +501,28 @@ function finishFlash(){
   $("#doneEmoji").textContent="🃏";$("#doneTitle").textContent="Karten geschafft!";
   $("#doneSub").textContent="Du hast alle Vokabeln durchgearbeitet.";
   $("#doneScore").textContent="";
-  $("#doneAgain").onclick=()=>startFlash(fc.cards.length?fc.cards:[], "");
-  $("#doneAgain")._again=()=>startFlash(fc.cards,"");
+  $("#doneAgain")._again=()=>startFlash(fc.cards,fc.label);
   show("done");
 }
 
 /* ---------- Lückentext ---------- */
-let gp={items:[],i:0,correct:0,answered:false};
+let gp={items:[],i:0,correct:0,answered:false,label:""};
 function startGap(words,label){
   const valid=words.filter(w=>w.fr&&w.de);
-  if(valid.length<1){toast("Keine Vokabeln vorhanden");return;}
-  gp={items:shuffle(valid),i:0,correct:0,answered:false};
-  show("gap");setNav(label||"");renderGap();
+  if(valid.length<1){toast("Bitte zuerst Lektionen auswählen");return;}
+  gp={items:shuffle(valid),i:0,correct:0,answered:false,label:label||""};
+  show("gap");renderGap();
 }
 function renderGap(){
   const it=gp.items[gp.i];
   gp.answered=false;
-  // Richtung wählen: Deutsch zeigen, Fremdwort eintippen (Standard, gut zum Lernen)
   it._ask = it.de; it._sol = it.fr;
   $("#gapPrompt").textContent="Wie heißt das Wort in der Fremdsprache?";
   $("#gapSentence").innerHTML=`„${esc(it._ask)}“ &nbsp;→&nbsp; <span class="gap-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>`;
   const inp=$("#gapInput");inp.value="";inp.className="gap-input";inp.disabled=false;
   $("#gapFeedback").innerHTML="";
   $("#gapCheck").textContent="Prüfen";
+  $("#gapTitle").textContent=gp.label;
   $("#gapCounter").textContent=`${gp.i+1}/${gp.items.length}`;
   $("#gapBar").style.width=(gp.i/gp.items.length*100)+"%";
   setTimeout(()=>inp.focus(),120);
@@ -450,7 +532,6 @@ function gapCheck(){
   const it=gp.items[gp.i];const inp=$("#gapInput");
   if(!gp.answered){
     const ans=norm(inp.value);
-    // akzeptiere auch Variante ohne Artikel
     const sol=norm(it._sol);
     const solNoArt=sol.replace(/^(le |la |les |l'|un |une |des |the |to |der |die |das )/,"");
     const ansNoArt=ans.replace(/^(le |la |les |l'|un |une |des |the |to |der |die |das )/,"");
@@ -473,22 +554,33 @@ function finishGap(){
   $("#doneTitle").textContent= pct>=80?"Stark!":"Weiter üben!";
   $("#doneSub").textContent="Lückentext abgeschlossen.";
   $("#doneScore").textContent=`${gp.correct} von ${gp.items.length} richtig · ${pct}%`;
-  $("#doneAgain")._again=()=>startGap(gp.items,"");
-  $("#doneAgain").onclick=()=>$("#doneAgain")._again();
+  $("#doneAgain")._again=()=>startGap(gp.items,gp.label);
   show("done");
 }
 $("#doneAgain").onclick=()=>{if($("#doneAgain")._again)$("#doneAgain")._again();};
 
-/* ---------- Navigation ---------- */
+/* ---------- Navigation / clicks ---------- */
 document.body.addEventListener("click",e=>{
   const t=e.target;
   if(t.closest("[data-home]")){show("home");setNav("home");renderHome();return;}
-  // unit quiz buttons
+
+  // Checkbox / Label toggeln
+  const tog=t.closest("[data-toggle]");
+  if(tog){
+    const id=tog.dataset.toggle;
+    if(selected.has(id))selected.delete(id);else selected.add(id);
+    // nur die betroffene Checkbox umschalten (ohne komplettes Re-Render)
+    $$(`[data-toggle="${id}"]`).forEach(elx=>{if(elx.classList.contains("ck"))elx.classList.toggle("on",selected.has(id));});
+    updateSelBar();
+    return;
+  }
+
+  // Einzel-Quiz pro Unit (Buttons)
   const act=t.closest("[data-act]");
   if(act){
     const f=findUnit(act.dataset.u);if(!f)return;
-    if(act.dataset.act==="flash")startFlash(f.unit.words);
-    else startGap(f.unit.words);
+    if(act.dataset.act==="flash")startFlash(f.unit.words.map(w=>({...w})),f.unit.title);
+    else startGap(f.unit.words.map(w=>({...w})),f.unit.title);
     return;
   }
   const addU=t.closest("[data-addunit]");
@@ -496,16 +588,39 @@ document.body.addEventListener("click",e=>{
   const delB=t.closest("[data-delbook]");
   if(delB){
     if(confirm("Dieses Buch mit allen Vokabeln wirklich löschen?")){
+      const b=books.find(x=>x.id===delB.dataset.delbook);
+      if(b)b.units.forEach(u=>selected.delete(u.id));
       books=books.filter(b=>b.id!==delB.dataset.delbook);save();renderHome();toast("Buch gelöscht");
     }
     return;
   }
 });
+
+/* "Alle auswählen" / "Auswahl aufheben" */
+$("#selAllBtn").onclick=()=>{
+  const ids=allUnitIds();
+  const allSel = ids.length>0 && ids.every(id=>selected.has(id));
+  if(allSel)selected.clear();
+  else ids.forEach(id=>selected.add(id));
+  renderHome();
+};
+
+/* Selection-Bar Buttons */
+$("#selFlash").onclick=()=>startFlash(wordsForSelection(),selectionLabel());
+$("#selGap").onclick=()=>startGap(wordsForSelection(),selectionLabel());
+
+/* Bottom-Nav */
 $$(".nav button").forEach(b=>b.onclick=()=>{
   const n=b.dataset.nav;
   if(n==="home"){show("home");setNav("home");renderHome();}
-  else if(n==="flashAll"){setNav("flashAll");startFlash(allWords(),"flashAll");}
-  else if(n==="gapAll"){setNav("gapAll");startGap(allWords(),"gapAll");}
+  else if(n==="flashAll"){
+    if(selected.size){startFlash(wordsForSelection(),selectionLabel());}
+    else {startFlash(allWords(),"Alle Vokabeln");}
+  }
+  else if(n==="gapAll"){
+    if(selected.size){startGap(wordsForSelection(),selectionLabel());}
+    else {startGap(allWords(),"Alle Vokabeln");}
+  }
   else if(n==="add"){openBookModal();}
 });
 $("#addBookBtn").onclick=openBookModal;
