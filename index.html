@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1b3a6b">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Vokabeln">
+<title>Vokabeltrainer</title>
+<style>
+  :root{
+    --paper:#f6f1e7;
+    --paper-2:#efe8d8;
+    --ink:#1b3a6b;
+    --ink-soft:#3d5a86;
+    --accent:#d8612e;
+    --accent-soft:#f0c9b4;
+    --green:#3f7d52;
+    --green-soft:#cfe3d4;
+    --red:#b23b3b;
+    --line:#d9cfba;
+    --card:#fffdf8;
+    --shadow:0 10px 30px -12px rgba(27,58,107,.35);
+    --r:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    overscroll-behavior-y:none;
+    -webkit-font-smoothing:antialiased;
+  }
+  .app{
+    max-width:560px;margin:0 auto;min-height:100%;
+    padding:env(safe-area-inset-top) 16px calc(88px + env(safe-area-inset-bottom));
+    display:flex;flex-direction:column;
+  }
+  /* Header */
+  header{padding:20px 4px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;flex-direction:column}
+  .brand h1{
+    font-size:26px;font-weight:800;letter-spacing:-.4px;line-height:1;
+    font-family:"Iowan Old Style",Georgia,serif;
+  }
+  .brand .sub{font-size:13px;color:var(--ink-soft);margin-top:3px;letter-spacing:.3px}
+  .install-btn{
+    font:inherit;font-size:13px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);
+    padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;display:none;
+  }
+  .install-btn.show{display:block}
+
+  /* Views */
+  .view{display:none;animation:fade .25s ease}
+  .view.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  h2.section{font-size:15px;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink-soft);margin:10px 4px 12px;font-weight:700}
+
+  /* Book / unit cards */
+  .stack{display:flex;flex-direction:column;gap:12px}
+  .book{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    overflow:hidden;box-shadow:var(--shadow);
+  }
+  .book-head{
+    padding:16px 18px;display:flex;align-items:center;gap:13px;cursor:pointer;user-select:none;
+  }
+  .book-flag{font-size:28px;line-height:1;filter:saturate(1.1)}
+  .book-meta{flex:1;min-width:0}
+  .book-meta .t{font-size:18px;font-weight:700;letter-spacing:-.2px}
+  .book-meta .l{font-size:12.5px;color:var(--ink-soft);letter-spacing:.4px}
+  .chev{transition:transform .25s;color:var(--ink-soft);font-size:18px}
+  .book.open .chev{transform:rotate(90deg)}
+  .book-body{display:none;border-top:1px solid var(--line)}
+  .book.open .book-body{display:block}
+  .unit{
+    padding:13px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;
+    border-bottom:1px solid var(--paper-2);
+  }
+  .unit:last-child{border-bottom:none}
+  .unit:active{background:var(--paper-2)}
+  .unit .u-t{flex:1;font-size:15px}
+  .unit .u-c{font-size:12px;color:var(--ink-soft);background:var(--paper-2);padding:3px 9px;border-radius:999px}
+  .unit-actions{display:flex;gap:6px}
+  .mini{
+    font:inherit;font-size:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);
+    padding:6px 11px;border-radius:999px;cursor:pointer;
+  }
+  .mini.accent{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  .add-row{margin:16px 4px 0}
+  .add-book-btn{
+    width:100%;font:inherit;font-size:15px;border:1.5px dashed var(--line);background:transparent;color:var(--ink-soft);
+    padding:15px;border-radius:var(--r);cursor:pointer;
+  }
+  .add-book-btn:active{background:var(--paper-2)}
+
+  /* Flashcard */
+  .quiz-top{display:flex;align-items:center;justify-content:space-between;padding:14px 4px;gap:10px}
+  .back{font:inherit;font-size:14px;background:none;border:none;color:var(--ink-soft);cursor:pointer;padding:6px}
+  .progress{flex:1;height:8px;background:var(--paper-2);border-radius:999px;overflow:hidden;margin:0 6px}
+  .progress > i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+  .counter{font-size:13px;color:var(--ink-soft);min-width:48px;text-align:right}
+
+  .flash{
+    background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);
+    min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:30px 24px;text-align:center;cursor:pointer;position:relative;margin-top:6px;
+  }
+  .flash .lbl{position:absolute;top:14px;left:16px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft)}
+  .flash .word{font-size:30px;font-weight:700;letter-spacing:-.3px}
+  .flash .answer{margin-top:18px;padding-top:18px;border-top:1px dashed var(--line);font-size:24px;color:var(--accent);font-weight:700;display:none}
+  .flash.flipped .answer{display:block;animation:fade .2s ease}
+  .flash .tap-hint{position:absolute;bottom:14px;font-size:12px;color:var(--ink-soft)}
+  .flash.flipped .tap-hint{display:none}
+
+  .rate{display:flex;gap:10px;margin-top:16px}
+  .rate button{flex:1;font:inherit;font-size:15px;padding:14px;border-radius:14px;cursor:pointer;border:1.5px solid;font-weight:600}
+  .rate .no{background:#fff;border-color:var(--red);color:var(--red)}
+  .rate .yes{background:var(--green);border-color:var(--green);color:#fff}
+  .rate.hidden{display:none}
+
+  /* Gap / Lückentext */
+  .gap-card{
+    background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);
+    padding:26px 22px;margin-top:6px;
+  }
+  .gap-prompt{font-size:14px;color:var(--ink-soft);letter-spacing:.4px;margin-bottom:6px}
+  .gap-sentence{font-size:21px;font-weight:700;line-height:1.45;margin-bottom:20px}
+  .gap-blank{color:var(--accent);border-bottom:2px solid var(--accent);padding:0 28px}
+  .gap-input{
+    width:100%;font:inherit;font-size:19px;padding:14px 16px;border:1.5px solid var(--line);
+    border-radius:14px;background:var(--paper);color:var(--ink);
+  }
+  .gap-input:focus{outline:none;border-color:var(--ink)}
+  .gap-input.correct{border-color:var(--green);background:var(--green-soft)}
+  .gap-input.wrong{border-color:var(--red);background:#f7dede}
+  .gap-feedback{margin-top:14px;font-size:15px;min-height:24px}
+  .gap-feedback .ok{color:var(--green);font-weight:700}
+  .gap-feedback .bad{color:var(--red);font-weight:700}
+  .gap-feedback .sol{color:var(--ink-soft)}
+  .btn-primary{
+    width:100%;font:inherit;font-size:16px;font-weight:600;padding:15px;border-radius:14px;
+    background:var(--ink);color:#fff;border:none;cursor:pointer;margin-top:18px;
+  }
+  .btn-primary:active{transform:translateY(1px)}
+
+  /* Done screen */
+  .done{text-align:center;padding:40px 20px;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);margin-top:8px}
+  .done .big{font-size:52px}
+  .done h3{font-size:24px;margin:10px 0 4px}
+  .done p{color:var(--ink-soft);margin-bottom:22px}
+  .done .score{font-size:17px;font-weight:700;color:var(--accent);margin-bottom:22px}
+
+  /* Bottom nav */
+  .nav{
+    position:fixed;left:0;right:0;bottom:0;z-index:20;
+    background:rgba(246,241,231,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);
+    padding:8px 0 calc(8px + env(safe-area-inset-bottom));
+  }
+  .nav-inner{max-width:560px;margin:0 auto;display:flex}
+  .nav button{
+    flex:1;background:none;border:none;font:inherit;color:var(--ink-soft);cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;padding:6px;
+  }
+  .nav button .ico{font-size:21px;line-height:1}
+  .nav button.active{color:var(--accent)}
+
+  /* Modal */
+  .modal{position:fixed;inset:0;z-index:40;background:rgba(20,30,50,.45);display:none;align-items:flex-end;justify-content:center}
+  .modal.show{display:flex}
+  .sheet{
+    background:var(--paper);width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));
+    max-height:88vh;overflow:auto;box-shadow:0 -10px 40px rgba(0,0,0,.25);animation:up .28s ease;
+  }
+  @keyframes up{from{transform:translateY(100%)}to{transform:none}}
+  .sheet h3{font-size:20px;margin-bottom:4px}
+  .sheet .hint{font-size:13px;color:var(--ink-soft);margin-bottom:16px}
+  label{display:block;font-size:13px;color:var(--ink-soft);margin:12px 0 5px;letter-spacing:.3px}
+  input.f,select.f,textarea.f{
+    width:100%;font:inherit;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);
+    border-radius:12px;background:var(--card);color:var(--ink);
+  }
+  input.f:focus,select.f:focus,textarea.f:focus{outline:none;border-color:var(--ink)}
+  textarea.f{min-height:140px;resize:vertical;line-height:1.6;font-size:15px}
+  .mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+  .sheet-actions{display:flex;gap:10px;margin-top:20px}
+  .sheet-actions button{flex:1;font:inherit;font-size:16px;font-weight:600;padding:14px;border-radius:12px;cursor:pointer;border:none}
+  .cancel{background:var(--paper-2);color:var(--ink)}
+  .save{background:var(--ink);color:#fff}
+  .ex{font-size:12.5px;color:var(--ink-soft);background:var(--paper-2);padding:10px 12px;border-radius:10px;margin-top:6px;line-height:1.5}
+
+  .empty{text-align:center;color:var(--ink-soft);padding:50px 20px;font-size:15px}
+  .danger{background:none;border:none;color:var(--red);font:inherit;font-size:13px;cursor:pointer;padding:4px}
+  .toast{
+    position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;
+    opacity:0;transition:.3s;z-index:60;pointer-events:none;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <h1>Vokabeln</h1>
+      <span class="sub">Luis · 9. Klasse</span>
+    </div>
+    <button class="install-btn" id="installBtn">📲 Installieren</button>
+  </header>
+
+  <!-- HOME -->
+  <section class="view active" id="view-home">
+    <h2 class="section">Deine Bücher</h2>
+    <div class="stack" id="bookList"></div>
+    <div class="add-row">
+      <button class="add-book-btn" id="addBookBtn">＋ Weiteres Buch hinzufügen</button>
+    </div>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="view" id="view-flash">
+    <div class="quiz-top">
+      <button class="back" data-home>‹ Zurück</button>
+      <div class="progress"><i id="flashBar"></i></div>
+      <span class="counter" id="flashCounter">0/0</span>
+    </div>
+    <div class="flash" id="flashCard">
+      <span class="lbl" id="flashLbl">Frage</span>
+      <div class="word" id="flashWord"></div>
+      <div class="answer" id="flashAnswer"></div>
+      <span class="tap-hint">Tippen zum Umdrehen</span>
+    </div>
+    <div class="rate hidden" id="flashRate">
+      <button class="no" data-rate="0">Nochmal üben</button>
+      <button class="yes" data-rate="1">Gewusst ✓</button>
+    </div>
+  </section>
+
+  <!-- GAP / LÜCKENTEXT -->
+  <section class="view" id="view-gap">
+    <div class="quiz-top">
+      <button class="back" data-home>‹ Zurück</button>
+      <div class="progress"><i id="gapBar"></i></div>
+      <span class="counter" id="gapCounter">0/0</span>
+    </div>
+    <div class="gap-card">
+      <div class="gap-prompt" id="gapPrompt">Setze das passende Wort ein</div>
+      <div class="gap-sentence" id="gapSentence"></div>
+      <input class="gap-input" id="gapInput" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Antwort eingeben…">
+      <div class="gap-feedback" id="gapFeedback"></div>
+      <button class="btn-primary" id="gapCheck">Prüfen</button>
+    </div>
+  </section>
+
+  <!-- DONE -->
+  <section class="view" id="view-done">
+    <div class="done">
+      <div class="big" id="doneEmoji">🎉</div>
+      <h3 id="doneTitle">Fertig!</h3>
+      <p id="doneSub">Runde abgeschlossen</p>
+      <div class="score" id="doneScore"></div>
+      <button class="btn-primary" id="doneAgain">Nochmal üben</button>
+      <button class="add-book-btn" style="margin-top:10px" data-home>Zur Übersicht</button>
+    </div>
+  </section>
+</div>
+
+<!-- Bottom nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="active" data-nav="home"><span class="ico">📚</span>Bücher</button>
+    <button data-nav="flashAll"><span class="ico">🃏</span>Karten</button>
+    <button data-nav="gapAll"><span class="ico">✏️</span>Lückentext</button>
+    <button data-nav="add"><span class="ico">＋</span>Hinzufügen</button>
+  </div>
+</nav>
+
+<!-- Add-book modal -->
+<div class="modal" id="bookModal">
+  <div class="sheet">
+    <h3 id="bookModalTitle">Neues Buch</h3>
+    <p class="hint">Lege ein Buch an und füge dann Vokabeln hinzu.</p>
+    <label>Titel des Buches</label>
+    <input class="f" id="mBookTitle" placeholder="z. B. Green Line 5">
+    <label>Sprache</label>
+    <input class="f" id="mBookLang" placeholder="z. B. Englisch">
+    <label>Symbol / Flagge (optional)</label>
+    <input class="f" id="mBookFlag" placeholder="🇬🇧" maxlength="4">
+    <div class="sheet-actions">
+      <button class="cancel" data-close>Abbrechen</button>
+      <button class="save" id="mBookSave">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add-unit/words modal -->
+<div class="modal" id="unitModal">
+  <div class="sheet">
+    <h3 id="unitModalTitle">Vokabeln hinzufügen</h3>
+    <p class="hint">Eine Vokabel pro Zeile. Trenne Fremdwort und deutsche Bedeutung mit einem <b>=</b>.</p>
+    <label>Lektion / Unit-Titel</label>
+    <input class="f" id="mUnitTitle" placeholder="z. B. Unit 4 — Travelling">
+    <label>Vokabeln</label>
+    <textarea class="f mono" id="mWords" placeholder="to travel = reisen
+the journey = die Reise
+abroad = im Ausland"></textarea>
+    <div class="ex">Format: <span class="mono">fremdwort = deutsch</span><br>Beispiel: <span class="mono">la liberté = die Freiheit</span></div>
+    <div class="sheet-actions">
+      <button class="cancel" data-close>Abbrechen</button>
+      <button class="save" id="mUnitSave">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+/* ---------- Storage ---------- */
+const KEY="vokabel_books_v1";
+let books=[];
+function load(){
+  try{const r=localStorage.getItem(KEY); books = r?JSON.parse(r):structuredClone(SEED_BOOKS);}
+  catch(e){books=structuredClone(SEED_BOOKS);}
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(books));}
+function reseedIfEmpty(){if(!books.length){books=structuredClone(SEED_BOOKS);save();}}
+
+/* ---------- Helpers ---------- */
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const uid=()=>Math.random().toString(36).slice(2,9);
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1900);}
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+function show(view){$$(".view").forEach(v=>v.classList.remove("active"));$("#view-"+view).classList.add("active");window.scrollTo(0,0);}
+function setNav(name){$$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.nav===name));}
+
+/* ---------- Render home ---------- */
+function allWords(){return books.flatMap(b=>b.units.flatMap(u=>u.words.map(w=>({...w,lang:b.lang}))));}
+
+function renderHome(){
+  const list=$("#bookList");
+  list.innerHTML="";
+  if(!books.length){list.innerHTML='<div class="empty">Noch keine Bücher.<br>Füge eins hinzu, um loszulegen.</div>';return;}
+  books.forEach(b=>{
+    const total=b.units.reduce((n,u)=>n+u.words.length,0);
+    const el=document.createElement("div");
+    el.className="book";
+    el.innerHTML=`
+      <div class="book-head">
+        <span class="book-flag">${b.flag||"📘"}</span>
+        <div class="book-meta">
+          <div class="t">${esc(b.title)}</div>
+          <div class="l">${esc(b.lang||"")} · ${total} Vokabeln</div>
+        </div>
+        <span class="chev">›</span>
+      </div>
+      <div class="book-body">
+        ${b.units.map(u=>`
+          <div class="unit" data-unit="${u.id}">
+            <span class="u-t">${esc(u.title)}</span>
+            <span class="u-c">${u.words.length}</span>
+            <div class="unit-actions">
+              <button class="mini" data-act="flash" data-u="${u.id}">🃏</button>
+              <button class="mini accent" data-act="gap" data-u="${u.id}">✏️</button>
+            </div>
+          </div>`).join("")}
+        <div class="unit" style="justify-content:space-between">
+          <button class="mini" data-addunit="${b.id}">＋ Lektion / Vokabeln</button>
+          <button class="danger" data-delbook="${b.id}">Buch löschen</button>
+        </div>
+      </div>`;
+    el.querySelector(".book-head").onclick=()=>el.classList.toggle("open");
+    list.appendChild(el);
+  });
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+/* ---------- Lookup ---------- */
+function findUnit(uid){for(const b of books){const u=b.units.find(x=>x.id===uid);if(u)return{book:b,unit:u};}return null;}
+
+/* ---------- Flashcards ---------- */
+let fc={cards:[],i:0,again:[]};
+function startFlash(words,label){
+  if(!words.length){toast("Keine Vokabeln vorhanden");return;}
+  fc={cards:shuffle(words),i:0,again:[]};
+  show("flash");setNav(label||"");renderFlash();
+}
+function renderFlash(){
+  const c=fc.cards[fc.i];
+  const card=$("#flashCard");card.classList.remove("flipped");
+  // zufällig Richtung: mal Fremdwort→Deutsch, mal umgekehrt
+  if(c._dir===undefined)c._dir=Math.random()<0.5?0:1;
+  if(c._dir===0){$("#flashLbl").textContent="Fremdsprache";$("#flashWord").textContent=c.fr;$("#flashAnswer").textContent=c.de;}
+  else{$("#flashLbl").textContent="Deutsch";$("#flashWord").textContent=c.de;$("#flashAnswer").textContent=c.fr;}
+  $("#flashRate").classList.add("hidden");
+  $("#flashCounter").textContent=`${fc.i+1}/${fc.cards.length}`;
+  $("#flashBar").style.width=(fc.i/fc.cards.length*100)+"%";
+}
+$("#flashCard").onclick=()=>{const card=$("#flashCard");if(!card.classList.contains("flipped")){card.classList.add("flipped");$("#flashRate").classList.remove("hidden");}};
+$$('[data-rate]').forEach(b=>b.onclick=()=>{
+  if(b.dataset.rate==="0")fc.again.push(fc.cards[fc.i]);
+  fc.i++;
+  if(fc.i>=fc.cards.length){
+    if(fc.again.length){fc.cards=shuffle(fc.again);fc.again=[];fc.i=0;fc.cards.forEach(c=>delete c._dir);toast("Wiederholung der schweren Wörter");renderFlash();}
+    else finishFlash();
+  } else renderFlash();
+});
+function finishFlash(){
+  $("#doneEmoji").textContent="🃏";$("#doneTitle").textContent="Karten geschafft!";
+  $("#doneSub").textContent="Du hast alle Vokabeln durchgearbeitet.";
+  $("#doneScore").textContent="";
+  $("#doneAgain").onclick=()=>startFlash(fc.cards.length?fc.cards:[], "");
+  $("#doneAgain")._again=()=>startFlash(fc.cards,"");
+  show("done");
+}
+
+/* ---------- Lückentext ---------- */
+let gp={items:[],i:0,correct:0,answered:false};
+function startGap(words,label){
+  const valid=words.filter(w=>w.fr&&w.de);
+  if(valid.length<1){toast("Keine Vokabeln vorhanden");return;}
+  gp={items:shuffle(valid),i:0,correct:0,answered:false};
+  show("gap");setNav(label||"");renderGap();
+}
+function renderGap(){
+  const it=gp.items[gp.i];
+  gp.answered=false;
+  // Richtung wählen: Deutsch zeigen, Fremdwort eintippen (Standard, gut zum Lernen)
+  it._ask = it.de; it._sol = it.fr;
+  $("#gapPrompt").textContent="Wie heißt das Wort in der Fremdsprache?";
+  $("#gapSentence").innerHTML=`„${esc(it._ask)}“ &nbsp;→&nbsp; <span class="gap-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>`;
+  const inp=$("#gapInput");inp.value="";inp.className="gap-input";inp.disabled=false;
+  $("#gapFeedback").innerHTML="";
+  $("#gapCheck").textContent="Prüfen";
+  $("#gapCounter").textContent=`${gp.i+1}/${gp.items.length}`;
+  $("#gapBar").style.width=(gp.i/gp.items.length*100)+"%";
+  setTimeout(()=>inp.focus(),120);
+}
+function norm(s){return s.toLowerCase().trim().replace(/\s+/g," ").replace(/[.,;!?]+$/,"");}
+function gapCheck(){
+  const it=gp.items[gp.i];const inp=$("#gapInput");
+  if(!gp.answered){
+    const ans=norm(inp.value);
+    // akzeptiere auch Variante ohne Artikel
+    const sol=norm(it._sol);
+    const solNoArt=sol.replace(/^(le |la |les |l'|un |une |des |the |to |der |die |das )/,"");
+    const ansNoArt=ans.replace(/^(le |la |les |l'|un |une |des |the |to |der |die |das )/,"");
+    const ok = ans===sol || (ansNoArt && ansNoArt===solNoArt);
+    gp.answered=true;inp.disabled=true;
+    if(ok){inp.classList.add("correct");gp.correct++;$("#gapFeedback").innerHTML='<span class="ok">Richtig! ✓</span>';}
+    else{inp.classList.add("wrong");$("#gapFeedback").innerHTML=`<span class="bad">Nicht ganz.</span> <span class="sol">Lösung: <b>${esc(it._sol)}</b></span>`;}
+    $("#gapCheck").textContent = gp.i+1>=gp.items.length ? "Ergebnis ansehen" : "Weiter →";
+  } else {
+    gp.i++;
+    if(gp.i>=gp.items.length)finishGap();
+    else renderGap();
+  }
+}
+$("#gapCheck").onclick=gapCheck;
+$("#gapInput").addEventListener("keydown",e=>{if(e.key==="Enter")gapCheck();});
+function finishGap(){
+  const pct=Math.round(gp.correct/gp.items.length*100);
+  $("#doneEmoji").textContent= pct>=80?"🌟":pct>=50?"👍":"💪";
+  $("#doneTitle").textContent= pct>=80?"Stark!":"Weiter üben!";
+  $("#doneSub").textContent="Lückentext abgeschlossen.";
+  $("#doneScore").textContent=`${gp.correct} von ${gp.items.length} richtig · ${pct}%`;
+  $("#doneAgain")._again=()=>startGap(gp.items,"");
+  $("#doneAgain").onclick=()=>$("#doneAgain")._again();
+  show("done");
+}
+$("#doneAgain").onclick=()=>{if($("#doneAgain")._again)$("#doneAgain")._again();};
+
+/* ---------- Navigation ---------- */
+document.body.addEventListener("click",e=>{
+  const t=e.target;
+  if(t.closest("[data-home]")){show("home");setNav("home");renderHome();return;}
+  // unit quiz buttons
+  const act=t.closest("[data-act]");
+  if(act){
+    const f=findUnit(act.dataset.u);if(!f)return;
+    if(act.dataset.act==="flash")startFlash(f.unit.words);
+    else startGap(f.unit.words);
+    return;
+  }
+  const addU=t.closest("[data-addunit]");
+  if(addU){openUnitModal(addU.dataset.addunit);return;}
+  const delB=t.closest("[data-delbook]");
+  if(delB){
+    if(confirm("Dieses Buch mit allen Vokabeln wirklich löschen?")){
+      books=books.filter(b=>b.id!==delB.dataset.delbook);save();renderHome();toast("Buch gelöscht");
+    }
+    return;
+  }
+});
+$$(".nav button").forEach(b=>b.onclick=()=>{
+  const n=b.dataset.nav;
+  if(n==="home"){show("home");setNav("home");renderHome();}
+  else if(n==="flashAll"){setNav("flashAll");startFlash(allWords(),"flashAll");}
+  else if(n==="gapAll"){setNav("gapAll");startGap(allWords(),"gapAll");}
+  else if(n==="add"){openBookModal();}
+});
+$("#addBookBtn").onclick=openBookModal;
+
+/* ---------- Modals ---------- */
+function openBookModal(){
+  $("#mBookTitle").value="";$("#mBookLang").value="";$("#mBookFlag").value="";
+  $("#bookModal").classList.add("show");setTimeout(()=>$("#mBookTitle").focus(),150);
+}
+$("#mBookSave").onclick=()=>{
+  const title=$("#mBookTitle").value.trim();
+  if(!title){toast("Bitte einen Titel eingeben");return;}
+  books.push({id:uid(),title,lang:$("#mBookLang").value.trim(),flag:$("#mBookFlag").value.trim()||"📘",units:[]});
+  save();closeModals();renderHome();setNav("home");show("home");
+  toast("Buch angelegt — jetzt Vokabeln hinzufügen");
+};
+let unitTargetBook=null;
+function openUnitModal(bookId){
+  unitTargetBook=bookId;
+  $("#mUnitTitle").value="";$("#mWords").value="";
+  $("#unitModal").classList.add("show");setTimeout(()=>$("#mUnitTitle").focus(),150);
+}
+$("#mUnitSave").onclick=()=>{
+  const b=books.find(x=>x.id===unitTargetBook);if(!b)return;
+  const title=$("#mUnitTitle").value.trim()||("Lektion "+(b.units.length+1));
+  const lines=$("#mWords").value.split("\n").map(l=>l.trim()).filter(Boolean);
+  const words=[];
+  for(const l of lines){
+    const m=l.split(/=|–|\t| - /);
+    if(m.length>=2){const fr=m[0].trim();const de=m.slice(1).join("=").trim();if(fr&&de)words.push({fr,de});}
+  }
+  if(!words.length){toast("Keine gültigen Vokabeln gefunden (Format: wort = deutsch)");return;}
+  b.units.push({id:uid(),title,words});
+  save();closeModals();renderHome();
+  toast(words.length+" Vokabeln gespeichert");
+};
+$$('[data-close]').forEach(b=>b.onclick=closeModals);
+function closeModals(){$$(".modal").forEach(m=>m.classList.remove("show"));}
+$$(".modal").forEach(m=>m.onclick=e=>{if(e.target===m)closeModals();});
+
+/* ---------- Install (PWA) ---------- */
+let deferred=null;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;$("#installBtn").classList.add("show");});
+$("#installBtn").onclick=async()=>{if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;$("#installBtn").classList.remove("show");}else{toast("Über das Browser-Menü „Zum Startbildschirm“ wählen");}};
+window.addEventListener("appinstalled",()=>{$("#installBtn").classList.remove("show");toast("App installiert 🎉");});
+
+/* ---------- Service worker ---------- */
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{});}
+
+/* ---------- Boot ---------- */
+load();reseedIfEmpty();renderHome();
+</script>
+</body>
+</html>
