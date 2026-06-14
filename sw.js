@@ -1,4 +1,4 @@
-const CACHE="vokabeln-v1";
+const CACHE="vokabeln-v2";
 const ASSETS=["./","./index.html","./data.js","./manifest.json",
   "./icons/icon-192.png","./icons/icon-512.png","./icons/icon-maskable-512.png"];
 
@@ -10,6 +10,20 @@ self.addEventListener("activate",e=>{
 });
 self.addEventListener("fetch",e=>{
   if(e.request.method!=="GET")return;
+  const url=new URL(e.request.url);
+  // index.html und data.js immer zuerst aus dem Netz holen (network-first),
+  // damit neue Vokabeln/Updates sofort ankommen. Fallback: Cache (offline).
+  if(url.pathname.endsWith("/index.html")||url.pathname.endsWith("/data.js")||url.pathname.endsWith("/")){
+    e.respondWith(
+      fetch(e.request).then(res=>{
+        const copy=res.clone();
+        caches.open(CACHE).then(c=>c.put(e.request,copy)).catch(()=>{});
+        return res;
+      }).catch(()=>caches.match(e.request))
+    );
+    return;
+  }
+  // Alles andere (Icons, Manifest): cache-first, das ändert sich selten.
   e.respondWith(
     caches.match(e.request).then(cached=>cached||fetch(e.request).then(res=>{
       const copy=res.clone();

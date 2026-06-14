@@ -384,6 +384,19 @@ function load(){
 }
 function save(){localStorage.setItem(KEY,JSON.stringify(books));}
 function reseedIfEmpty(){if(!books.length){books=structuredClone(SEED_BOOKS);save();}}
+// Ergänzt fehlende Seed-Bücher und Seed-Lektionen, ohne vorhandene
+// Bücher, eigene Vokabeln oder den Lernfortschritt zu verändern.
+function mergeSeeds(){
+  let changed=false;
+  for(const sb of SEED_BOOKS){
+    const existing=books.find(b=>b.id===sb.id);
+    if(!existing){books.push(structuredClone(sb));changed=true;continue;}
+    for(const su of sb.units){
+      if(!existing.units.some(u=>u.id===su.id)){existing.units.push(structuredClone(su));changed=true;}
+    }
+  }
+  if(changed)save();
+}
 
 /* ---------- Helpers ---------- */
 const $=s=>document.querySelector(s);
@@ -671,7 +684,7 @@ window.addEventListener("appinstalled",()=>{$("#installBtn").classList.remove("s
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{});}
 
 /* ---------- Boot ---------- */
-load();reseedIfEmpty();renderHome();
+load();reseedIfEmpty();mergeSeeds();renderHome();
 </script>
 </body>
 </html>
