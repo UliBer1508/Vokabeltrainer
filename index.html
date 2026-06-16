@@ -520,18 +520,54 @@ function finishFlash(){
 
 /* ---------- Lückentext ---------- */
 let gp={items:[],i:0,correct:0,answered:false,label:""};
+// Merkt sich pro Wort, welcher Pool-Satz zuletzt dran war, damit
+// in der nächsten Runde möglichst ein anderer Satz gezeigt wird.
+const gapSeen={};
 function startGap(words,label){
   const valid=words.filter(w=>w.fr&&w.de);
   if(valid.length<1){toast("Bitte zuerst Lektionen auswählen");return;}
   gp={items:shuffle(valid),i:0,correct:0,answered:false,label:label||""};
   show("gap");renderGap();
 }
+// Wählt einen Satz aus dem Pool – möglichst nicht denselben wie letztes Mal,
+// und setzt die Lücke. Gibt {html, hasGap} zurück. Fällt elegant zurück,
+// wenn (noch) kein Pool für das Wort hinterlegt ist.
+function pickPoolSentence(it){
+  const pool = Array.isArray(it.pool) ? it.pool.filter(Boolean) : [];
+  if(!pool.length) return null;
+  const key = it.fr;
+  let idx = Math.floor(Math.random()*pool.length);
+  if(pool.length>1 && gapSeen[key]!==undefined){
+    // anderen Satz als zuletzt erzwingen
+    let guard=0;
+    while(idx===gapSeen[key] && guard++<8) idx=Math.floor(Math.random()*pool.length);
+  }
+  gapSeen[key]=idx;
+  return pool[idx];
+}
 function renderGap(){
   const it=gp.items[gp.i];
   gp.answered=false;
-  it._ask = it.de; it._sol = it.fr;
-  $("#gapPrompt").textContent="Wie heißt das Wort in der Fremdsprache?";
-  $("#gapSentence").innerHTML=`„${esc(it._ask)}“ &nbsp;→&nbsp; <span class="gap-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>`;
+  it._sol = it.fr;                      // Lösung = Fremdwort
+  const sentence = pickPoolSentence(it); // Satz aus Pool (oder null)
+  it._mode = sentence ? "sentence" : "translate";
+
+  // Hilfe-Zeile: englische Definition falls vorhanden, sonst deutsche Bedeutung
+  const help = it.def ? it.def : it.de;
+  const helpLabel = it.def ? "Definition" : "Bedeutung";
+
+  if(it._mode==="sentence"){
+    // Lücke im Satz darstellen
+    const html = esc(sentence).replace(/___+/g,
+      '<span class="gap-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+    $("#gapPrompt").innerHTML = `Setze das passende Wort ein &nbsp;·&nbsp; <span style="opacity:.8">${helpLabel}: ${esc(help)}</span>`;
+    $("#gapSentence").innerHTML = html;
+  } else {
+    // Fallback: klassische Abfrage (kein Pool hinterlegt)
+    $("#gapPrompt").textContent = it.def ? "Welches Wort wird hier beschrieben?" : "Wie heißt das Wort in der Fremdsprache?";
+    $("#gapSentence").innerHTML = `„${esc(help)}“ &nbsp;→&nbsp; <span class="gap-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>`;
+  }
+
   const inp=$("#gapInput");inp.value="";inp.className="gap-input";inp.disabled=false;
   $("#gapFeedback").innerHTML="";
   $("#gapCheck").textContent="Prüfen";
