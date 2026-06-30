@@ -272,6 +272,684 @@ const SEED_BOOKS = [
             "Ces études lui ouvrent un bel ___."
           ] }
         ]
+      },
+      {
+        id: "d4-u4",
+        title: "Unité 4 — Médias, Internet et cinéma",
+        words: [
+          { fr: "accro (à qc)", de: "süchtig (nach etw.)", pool: [
+            "Beaucoup de gens sont ___ à leur portable.",
+            "Mon petit frère est complètement ___ aux jeux vidéo.",
+            "Elle est ___ à cette nouvelle série télévisée.",
+            "Depuis qu'il a ce téléphone, il est vraiment ___.",
+            "On peut vite devenir ___ aux réseaux sociaux."
+          ] },
+          { fr: "un ado / une ado", de: "ein Jugendlicher / eine Jugendliche", pool: [
+            "À cet âge, un ___ veut souvent plus d'indépendance.",
+            "Les ___ passent beaucoup de temps sur leur smartphone.",
+            "Cette appli est très populaire chez les ___.",
+            "Une ___ de quinze ans habite à côté de chez nous.",
+            "Le film raconte la vie d'un ___ dans une grande ville."
+          ] },
+          { fr: "un smartphone", de: "ein Smartphone", pool: [
+            "Il a acheté un nouveau ___ pour son anniversaire.",
+            "Mon ___ n'a presque plus de batterie.",
+            "Avec un ___, on peut faire des photos de très bonne qualité.",
+            "Elle a oublié son ___ à la maison ce matin.",
+            "Ce ___ coûte beaucoup trop cher pour moi."
+          ] },
+          { fr: "indispensable", de: "unbedingt notwendig", pool: [
+            "Avoir un portable est devenu ___ pour beaucoup de jeunes.",
+            "L'eau est ___ à la vie de tous les êtres vivants.",
+            "Ce document est ___ pour pouvoir voyager.",
+            "Une bonne préparation est ___ avant un examen.",
+            "Le téléphone est ___ en cas d'urgence."
+          ] },
+          { fr: "dépendant / dépendante (de qc)", de: "abhängig von etw.", pool: [
+            "Il est trop ___ de l'avis des autres.",
+            "Beaucoup de personnes sont ___ de leur téléphone.",
+            "Elle ne veut pas être ___ de ses parents.",
+            "Notre région est encore très ___ du tourisme.",
+            "On peut devenir ___ de certains médicaments."
+          ] },
+          { fr: "un compte", de: "ein Account", pool: [
+            "J'ai créé un ___ sur ce réseau social hier soir.",
+            "Il a oublié le mot de passe de son ___.",
+            "Tu dois fermer ton ___ si tu ne l'utilises plus.",
+            "Son ___ a été piraté la semaine dernière.",
+            "Pour t'inscrire, ouvre d'abord un ___ gratuit."
+          ] },
+          { fr: "un réseau social", de: "ein soziales Netzwerk", pool: [
+            "J'ai cent amis sur ce ___.",
+            "Ce ___ est interdit aux enfants de moins de treize ans.",
+            "Elle partage ses photos sur un ___ très connu.",
+            "Un ___ peut aider à rester en contact avec ses amis.",
+            "Il passe trop de temps sur les ___ chaque jour."
+          ] },
+          { fr: "un collégien / une collégienne", de: "ein Schüler / eine Schülerin des Collège", pool: [
+            "Un ___ apprend déjà une deuxième langue étrangère.",
+            "Les ___ rentrent chez eux vers seize heures.",
+            "Ma cousine est ___ dans une école près de Lyon.",
+            "Chaque ___ doit porter un cartable assez lourd.",
+            "Le ___ a oublié son cahier à la maison."
+          ] },
+          { fr: "malgré qc", de: "trotz etw.", pool: [
+            "___ la pluie, nous sommes allés nous promener.",
+            "Il a réussi ___ toutes les difficultés.",
+            "___ son jeune âge, elle joue très bien du piano.",
+            "Nous sommes sortis ___ le mauvais temps.",
+            "___ tout, je ne me sentais pas très triste."
+          ] },
+          { fr: "une interdiction", de: "ein Verbot", pool: [
+            "Il y a une ___ de fumer dans tout le bâtiment.",
+            "Cette ___ concerne aussi les téléphones en classe.",
+            "L'___ de stationner est clairement indiquée.",
+            "Personne ne respecte cette ___ stupide.",
+            "Une nouvelle ___ entre en vigueur le mois prochain."
+          ] },
+          { fr: "une insulte", de: "eine Beleidigung", pool: [
+            "Il a répondu par une ___ vraiment grossière.",
+            "Une ___ pareille ne devrait jamais être tolérée.",
+            "Sur Internet, les ___ sont malheureusement fréquentes.",
+            "Elle a pris cette remarque comme une ___.",
+            "Lancer une ___ ne règle jamais un problème."
+          ] },
+          { fr: "en moyenne", de: "durchschnittlich / im Durchschnitt", pool: [
+            "___, je passe trois heures par jour devant mon portable.",
+            "Les élèves dorment ___ huit heures par nuit.",
+            "Ce trajet dure ___ quarante minutes.",
+            "___, il lit deux livres par mois.",
+            "Nous dépensons ___ cinquante euros par semaine."
+          ] },
+          { fr: "un écran", de: "ein Bildschirm / eine Leinwand", pool: [
+            "Passe moins de temps devant un ___ le soir.",
+            "L'___ de mon ordinateur est trop petit pour travailler.",
+            "Au cinéma, l'___ est vraiment immense.",
+            "Son ___ de téléphone est cassé depuis hier.",
+            "Cet ___ tactile réagit très vite au toucher."
+          ] },
+          { fr: "publier qc", de: "etw. veröffentlichen", pool: [
+            "Hervé Mestron vient de ___ un nouveau livre.",
+            "Elle aime ___ ses photos de vacances en ligne.",
+            "Le journal va ___ cet article demain matin.",
+            "Il a décidé de ne pas ___ ces images privées.",
+            "Cet auteur espère ___ son premier roman bientôt."
+          ] },
+          { fr: "une statistique", de: "eine Statistik", pool: [
+            "Cette ___ montre l'usage du portable chez les jeunes.",
+            "La nouvelle ___ a surpris tout le monde.",
+            "On peut tout faire dire à une ___.",
+            "Selon cette ___, les ventes ont beaucoup augmenté.",
+            "Le professeur a expliqué la ___ avec un graphique."
+          ] },
+          { fr: "un appareil", de: "ein Apparat / ein Gerät", pool: [
+            "Cet ___ photo prend des images magnifiques.",
+            "Mon ___ est en panne depuis ce matin.",
+            "Il faut éteindre l'___ avant de le nettoyer.",
+            "Ce petit ___ mesure la température de la pièce.",
+            "Elle a acheté un nouvel ___ électroménager."
+          ] },
+          { fr: "en ligne", de: "online", pool: [
+            "Beaucoup de gens achètent leurs vêtements ___.",
+            "Tu peux remplir ce formulaire ___ en cinq minutes.",
+            "Le cours aura lieu ___ à cause de la neige.",
+            "Elle a trouvé toutes ces informations ___.",
+            "On peut réserver les billets ___ sans payer de frais."
+          ] },
+          { fr: "un youtubeur / une youtubeuse", de: "ein Youtuber / eine Youtuberin", pool: [
+            "Cyprien est un ___ très connu en France.",
+            "Cette ___ a des millions d'abonnés sur sa chaîne.",
+            "Mon frère rêve de devenir ___ un jour.",
+            "Ce ___ publie une vidéo nouvelle chaque semaine.",
+            "Une ___ a expliqué comment elle prépare ses vidéos."
+          ] },
+          { fr: "prévenir qn", de: "jdn. benachrichtigen / jdn. warnen", pool: [
+            "Tu as ___ tes parents que tu rentrais tard ?",
+            "Il faut ___ les voisins avant de faire la fête.",
+            "Elle a oublié de me ___ du changement d'heure.",
+            "Je vais te ___ dès que tout sera prêt.",
+            "Pense à ___ le professeur si tu es absent."
+          ] },
+          { fr: "une conséquence", de: "eine Folge / eine Konsequenz", pool: [
+            "As-tu pensé aux ___ de ta décision ?",
+            "Cette erreur a eu une ___ très grave.",
+            "Le réchauffement a des ___ sur toute la planète.",
+            "Chaque action entraîne une ___.",
+            "La principale ___ de ce choix est financière."
+          ] },
+          { fr: "recevoir qn / qc", de: "jdn. empfangen / etw. bekommen", pool: [
+            "Mathilde ___ beaucoup de likes pour ses vidéos.",
+            "Nous allons ___ des invités ce week-end.",
+            "Il espère ___ une bonne note à son examen.",
+            "Tu vas ___ un message de confirmation par mail.",
+            "Elle aime ___ ses amis à la maison le dimanche."
+          ] },
+          { fr: "évident / évidente", de: "klar / offensichtlich", pool: [
+            "Elle a raison, c'est tout à fait ___.",
+            "La solution de ce problème n'est pas ___.",
+            "Il était ___ qu'il mentait depuis le début.",
+            "Ce n'est pas si ___ à comprendre du premier coup.",
+            "Pour lui, la réponse semblait complètement ___."
+          ] },
+          { fr: "une publicité", de: "eine Werbung / ein Werbespot", pool: [
+            "Cette ___ passe sans arrêt à la télévision.",
+            "Une ___ amusante reste plus longtemps en mémoire.",
+            "Il y a trop de ___ avant le début du film.",
+            "Cette marque a fait une ___ très originale.",
+            "La ___ pour ce produit est vraiment trompeuse."
+          ] },
+          { fr: "un effort", de: "eine Anstrengung", pool: [
+            "Il faut faire des ___ pour réussir.",
+            "Avec un petit ___, tu vas y arriver.",
+            "Cet exercice demande un gros ___ de concentration.",
+            "Elle a fait beaucoup d'___ pour apprendre le français.",
+            "Encore un dernier ___ avant la fin de la course !"
+          ] },
+          { fr: "tuer qn", de: "jdn. töten / jdn. umbringen", pool: [
+            "Dans ce film, le criminel veut ___ le témoin.",
+            "On l'a ___, maintenant il est mort.",
+            "Le héros refuse de ___ son ennemi.",
+            "Cette maladie peut ___ en quelques jours.",
+            "Le personnage principal cherche qui a voulu le ___."
+          ] },
+          { fr: "Tant pis !", de: "Dann eben nicht! / Pech gehabt!", pool: [
+            "Tu ne veux pas venir ? ___ pour toi !",
+            "Il n'y a plus de places ? ___, on ira demain.",
+            "___, je me débrouillerai tout seul cette fois.",
+            "Tu as raté le bus ? ___, prends le suivant.",
+            "Elle a oublié son parapluie. ___, il ne pleut pas fort."
+          ] },
+          { fr: "un ordinateur portable", de: "ein Notebook / ein Laptop", pool: [
+            "Elle emporte son ___ partout pour travailler.",
+            "Mon ___ est plus léger que l'ancien.",
+            "L'écran de cet ___ est vraiment lumineux.",
+            "Il a renversé du café sur son ___.",
+            "Avec un ___, je peux travailler dans le train."
+          ] },
+          { fr: "ajouter qc", de: "etw. hinzufügen", pool: [
+            "Tu as tout dit, je n'ai rien à ___.",
+            "Il faut ___ un peu de sel à la sauce.",
+            "Peux-tu ___ ton nom en bas de la liste ?",
+            "Elle a voulu ___ une remarque importante.",
+            "N'oublie pas d'___ la date sur le document."
+          ] },
+          { fr: "un câble", de: "ein Kabel", pool: [
+            "Le prof a oublié le ___ pour l'ordinateur.",
+            "Ce ___ est trop court pour atteindre la prise.",
+            "Branche le ___ avant d'allumer l'appareil.",
+            "Mon ___ de chargeur ne fonctionne plus.",
+            "Il y a trop de ___ emmêlés derrière le bureau."
+          ] },
+          { fr: "poster qc", de: "etw. ins Internet stellen / etw. posten", pool: [
+            "Cyprien ___ une nouvelle vidéo toutes les semaines.",
+            "Elle vient de ___ une photo de son voyage.",
+            "Évite de ___ des informations trop personnelles.",
+            "Il aime ___ des commentaires sous les vidéos.",
+            "Je vais ___ ce message sur le forum ce soir."
+          ] },
+          { fr: "enregistrer qc", de: "etw. aufnehmen / etw. aufzeichnen", pool: [
+            "Mathilde a ___ sa première vidéo dans sa chambre.",
+            "Tu peux ___ l'émission et la regarder plus tard.",
+            "Il faut ___ ce concert pour ne rien oublier.",
+            "Elle a oublié d'___ le rendez-vous important.",
+            "On va ___ la chanson dans un vrai studio."
+          ] },
+          { fr: "une qualité", de: "eine Qualität / eine Eigenschaft", pool: [
+            "Cette caméra filme avec une excellente ___.",
+            "La patience est une ___ très utile dans la vie.",
+            "La ___ de ce produit est vraiment décevante.",
+            "Chacun a ses ___ et ses défauts.",
+            "On reconnaît la ___ d'un film à ses détails."
+          ] },
+          { fr: "un montage", de: "ein Schnitt (Film)", pool: [
+            "Le ___ de cette vidéo est très rapide et dynamique.",
+            "Elle a passé des heures sur le ___ de son film.",
+            "Un bon ___ peut sauver une scène moyenne.",
+            "Le ___ rend l'histoire plus facile à suivre.",
+            "Ce logiciel sert au ___ des vidéos."
+          ] },
+          { fr: "une chaîne", de: "ein Kanal", pool: [
+            "Quelle est ta ___ préférée sur YouTube ?",
+            "Cette ___ propose surtout des documentaires.",
+            "Il a créé sa propre ___ il y a deux ans.",
+            "Cette ___ de télévision diffuse beaucoup de films.",
+            "Abonne-toi à la ___ pour ne rien manquer."
+          ] },
+          { fr: "une société", de: "eine Gesellschaft", pool: [
+            "Ce film critique notre ___ moderne.",
+            "Dans cette ___, l'argent joue un rôle énorme.",
+            "Une ___ juste protège les plus faibles.",
+            "Les jeux de ___ sont parfaits pour une soirée.",
+            "Notre ___ change très vite grâce à la technologie."
+          ] },
+          { fr: "un chéri / une chérie", de: "ein Liebling / ein Schatz", pool: [
+            "Bonne nuit, mon ___, dors bien.",
+            "Sa ___ lui a offert un cadeau magnifique.",
+            "Viens ici, mon ___, le repas est prêt.",
+            "Elle appelle son chien « mon ___ ».",
+            "Mon ___, tu m'as beaucoup manqué aujourd'hui."
+          ] },
+          { fr: "l'horreur (f.)", de: "der Schrecken", pool: [
+            "Je n'aime pas les films d'___.",
+            "Quelle ___ de voir une telle catastrophe !",
+            "Ce roman d'___ m'a empêché de dormir.",
+            "Il a crié d'___ devant la scène effrayante.",
+            "L'___ de la guerre marque les gens pour toujours."
+          ] },
+          { fr: "avoir horreur de qc / qn", de: "etw. / jdn. verabscheuen", pool: [
+            "J'___ des jeux de société, je trouve ça ennuyeux.",
+            "Elle ___ du bruit quand elle travaille.",
+            "Il ___ qu'on le dérange pendant un film.",
+            "Nous ___ des longues files d'attente.",
+            "Mon frère ___ des légumes verts depuis toujours."
+          ] },
+          { fr: "sourire", de: "lächeln", pool: [
+            "Elle ne peut pas s'empêcher de ___ sur les photos.",
+            "Il suffit de ___ pour mettre les gens à l'aise.",
+            "Le bébé a commencé à ___ pour la première fois.",
+            "Essaie de ___ un peu, ça ira mieux.",
+            "Cet acteur sait ___ de façon très naturelle."
+          ] },
+          { fr: "liker qc", de: "etw. liken", pool: [
+            "J'ai ___ la vidéo de Mathilde parce qu'elle m'a plu.",
+            "N'oublie pas de ___ et de t'abonner.",
+            "Elle vient de ___ tous mes derniers messages.",
+            "Il hésite à ___ cette photo un peu gênante.",
+            "Beaucoup de gens vont ___ ce genre de contenu."
+          ] },
+          { fr: "augmenter", de: "steigen / wachsen", pool: [
+            "Les prix ont encore ___ cette année.",
+            "Le nombre d'abonnés ne cesse d'___.",
+            "La température va ___ dans l'après-midi.",
+            "Il faut ___ le volume, on n'entend rien.",
+            "Le risque d'accident ___ avec la vitesse."
+          ] },
+          { fr: "plein de", de: "viel / viele / jede Menge", pool: [
+            "Cette chaîne a ___ abonnés très fidèles.",
+            "Il y avait ___ monde au festival cette année.",
+            "Elle a ___ idées pour sa prochaine vidéo.",
+            "On a passé ___ bons moments ensemble.",
+            "Ce film a reçu ___ critiques positives."
+          ] },
+          { fr: "un abonné / une abonnée", de: "ein Abonnent / eine Abonnentin", pool: [
+            "Combien d'___ a la chaîne de Cyprien ?",
+            "Chaque nouvel ___ reçoit une notification.",
+            "Cette ___ commente toutes les vidéos.",
+            "Le nombre d'___ a doublé en un an.",
+            "Un ___ fidèle regarde chaque nouvelle vidéo."
+          ] },
+          { fr: "s'abonner (à qc)", de: "etw. abonnieren", pool: [
+            "Elle s'est ___ à un magazine de cinéma.",
+            "Pense à te ___ pour suivre la chaîne.",
+            "Il veut s'___ à ce service de streaming.",
+            "Nous allons nous ___ au journal local.",
+            "Beaucoup de gens se ___ juste pour une vidéo."
+          ] },
+          { fr: "la lecture", de: "das Lesen", pool: [
+            "La ___ est une de ses passions préférées.",
+            "Cette ___ m'a pris tout le week-end.",
+            "Il consacre une heure par jour à la ___.",
+            "La ___ à voix haute aide à mieux comprendre.",
+            "Elle a découvert le plaisir de la ___ très jeune."
+          ] },
+          { fr: "en direct", de: "live", pool: [
+            "Ce soir, je vais regarder le concert ___ à la télé.",
+            "Le match sera diffusé ___ à vingt heures.",
+            "Elle a répondu aux questions ___ sur Internet.",
+            "On a suivi l'événement ___ depuis la maison.",
+            "Cette émission est toujours présentée ___."
+          ] },
+          { fr: "international / internationale", de: "international", pool: [
+            "On retrouve des gens de tous les pays à ce festival, c'est vraiment ___.",
+            "Cet aéroport accueille des vols ___.",
+            "Le film a remporté un prix ___ très prestigieux.",
+            "Cette entreprise a une clientèle ___.",
+            "La presse ___ a beaucoup parlé de cet événement."
+          ] },
+          { fr: "une centaine", de: "etwa hundert", pool: [
+            "Il y avait une ___ de personnes dans la salle.",
+            "Cette chaîne a déjà publié une ___ de vidéos.",
+            "Une ___ d'élèves participent au projet.",
+            "Le livre compte une ___ de pages.",
+            "Une ___ de spectateurs attendaient devant le cinéma."
+          ] },
+          { fr: "étranger / étrangère", de: "ausländisch / fremd", pool: [
+            "À Cannes, on présente des films français et ___.",
+            "Elle parle trois langues ___ couramment.",
+            "Ce visage ne m'est pas ___, je l'ai déjà vu.",
+            "Beaucoup de touristes ___ visitent la ville.",
+            "Il a étudié dans un pays ___ pendant un an."
+          ] },
+          { fr: "un professionnel / une professionnelle", de: "ein Fachmann / eine Fachfrau / ein Profi", pool: [
+            "Pour ce travail, il vaut mieux appeler un ___.",
+            "Une ___ saura régler ce problème rapidement.",
+            "Ce ___ a vingt ans d'expérience dans le cinéma.",
+            "Seul un ___ peut utiliser cette machine.",
+            "Elle est devenue une vraie ___ de la photographie."
+          ] },
+          { fr: "l'or (m.)", de: "das Gold", pool: [
+            "Cette médaille est en ___ pur.",
+            "Le prix de l'___ a beaucoup augmenté.",
+            "Elle porte un bracelet en ___ très fin.",
+            "L'___ a toujours fasciné les êtres humains.",
+            "Ils ont trouvé de l'___ dans cette rivière."
+          ] },
+          { fr: "une passion", de: "eine Leidenschaft", pool: [
+            "Le cinéma, c'est ma ___ !",
+            "Elle parle de la musique avec beaucoup de ___.",
+            "La photographie est devenue sa plus grande ___.",
+            "Il met toute sa ___ dans son travail.",
+            "Partager une ___ rapproche vraiment les gens."
+          ] },
+          { fr: "le 7e art", de: "Bezeichnung für die Kunst des Films", pool: [
+            "Le ___ désigne l'art du cinéma.",
+            "Elle veut faire carrière dans le ___.",
+            "Le festival célèbre le ___ sous toutes ses formes.",
+            "Ce réalisateur a marqué l'histoire du ___.",
+            "Beaucoup d'écoles enseignent aujourd'hui le ___."
+          ] },
+          { fr: "une critique (de film)", de: "eine (Film-)Kritik", pool: [
+            "La ___ de ce film est plutôt mauvaise.",
+            "Il lit toujours la ___ avant d'aller au cinéma.",
+            "Cette ___ a découragé beaucoup de spectateurs.",
+            "Le journal a publié une ___ très positive.",
+            "Une bonne ___ explique pourquoi le film vaut la peine."
+          ] },
+          { fr: "une option", de: "ein Wahlfach", pool: [
+            "Enzo a pris l'___ cinéma au lycée.",
+            "Cette ___ permet d'apprendre la photographie.",
+            "Tu peux choisir une ___ artistique cette année.",
+            "L'___ théâtre a beaucoup de succès dans notre école.",
+            "Chaque élève doit choisir au moins une ___."
+          ] },
+          { fr: "suivre qn / qc", de: "jdm. / etw. folgen", pool: [
+            "Est-ce que tu ___ régulièrement l'actualité ?",
+            "Il faut ___ le conseil d'un ami expérimenté.",
+            "Elle a décidé de ___ un cours de théâtre.",
+            "Le chien aime ___ son maître partout.",
+            "Pour comprendre, tu dois ___ l'histoire depuis le début."
+          ] },
+          { fr: "régulier / régulière", de: "regelmäßig", pool: [
+            "Il fait un travail ___ tous les soirs.",
+            "Une pratique ___ est la clé du progrès.",
+            "Elle a un rythme de sommeil très ___.",
+            "Ce youtubeur publie de façon ___.",
+            "Un entraînement ___ améliore vite les résultats."
+          ] },
+          { fr: "l'actualité (f.)", de: "das Tagesgeschehen / das Zeitgeschehen", pool: [
+            "Tu suis régulièrement l'___ ?",
+            "L'___ de cette semaine est vraiment chargée.",
+            "Il s'informe sur l'___ chaque matin.",
+            "Cette appli résume toute l'___ en quelques minutes.",
+            "Un journaliste doit toujours suivre l'___ de près."
+          ] },
+          { fr: "un participant / une participante", de: "ein Teilnehmer / eine Teilnehmerin", pool: [
+            "Les ___ au festival sont arrivés hier.",
+            "Chaque ___ reçoit un badge à l'entrée.",
+            "Une ___ a posé une question intéressante.",
+            "Le nombre de ___ a battu un record cette année.",
+            "Tous les ___ doivent s'inscrire avant lundi."
+          ] },
+          { fr: "un smoking", de: "ein Smoking", pool: [
+            "Pour la cérémonie, il a mis un ___ élégant.",
+            "Son ___ noir lui va vraiment très bien.",
+            "Les acteurs portaient tous un ___ sur le tapis rouge.",
+            "Il a loué un ___ pour la soirée de gala.",
+            "Un ___ est obligatoire pour cet événement chic."
+          ] },
+          { fr: "une robe", de: "ein Kleid", pool: [
+            "Elle portait une ___ rouge magnifique sur le tapis rouge.",
+            "Cette ___ coûte beaucoup trop cher pour moi.",
+            "Sa ___ de soirée a impressionné tout le monde.",
+            "Elle hésite entre une ___ bleue et une ___ verte.",
+            "La ___ de l'actrice était signée d'un grand créateur."
+          ] },
+          { fr: "se présenter", de: "sich vorstellen", pool: [
+            "Vous pouvez vous ___ devant le public ?",
+            "Chaque candidat doit se ___ en quelques mots.",
+            "Elle s'est ___ avec beaucoup de confiance.",
+            "Avant de commencer, je vais me ___ rapidement.",
+            "Il s'est ___ comme le nouveau réalisateur du film."
+          ] },
+          { fr: "un tapis", de: "ein Teppich", pool: [
+            "Les stars marchent sur le ___ rouge à Cannes.",
+            "Ce ___ est très doux sous les pieds.",
+            "Il a posé un grand ___ dans le salon.",
+            "Le ___ rouge symbolise le luxe et la célébrité.",
+            "Attention, ce ___ glisse sur le sol lisse."
+          ] },
+          { fr: "un photographe / une photographe", de: "ein Fotograf / eine Fotografin", pool: [
+            "Un ___ a pris des centaines de photos des stars.",
+            "Cette ___ travaille pour un grand magazine.",
+            "Le ___ a demandé aux acteurs de sourire.",
+            "Une ___ professionnelle connaît bien la lumière.",
+            "Le ___ attend les célébrités devant le festival."
+          ] },
+          { fr: "une cérémonie", de: "eine Zeremonie", pool: [
+            "La ___ de clôture du festival était magnifique.",
+            "Cette ___ a duré près de deux heures.",
+            "Les invités sont arrivés avant le début de la ___.",
+            "La ___ de remise des prix a ému le public.",
+            "Une ___ officielle demande beaucoup de préparation."
+          ] },
+          { fr: "une comédie", de: "eine Komödie", pool: [
+            "Au cinéma, ce sont les ___ que je préfère.",
+            "Cette ___ m'a fait rire du début à la fin.",
+            "Une bonne ___ permet d'oublier ses soucis.",
+            "Ce film est une ___ légère et amusante.",
+            "Elle adore les ___ romantiques du week-end."
+          ] },
+          { fr: "un drame", de: "ein Drama", pool: [
+            "Quel ___ ! Toute la famille était bouleversée.",
+            "Ce film est un ___ très émouvant.",
+            "Le ___ raconte la vie difficile d'une jeune femme.",
+            "Elle préfère les ___ aux comédies.",
+            "Ce ___ historique se passe pendant la guerre."
+          ] },
+          { fr: "un film d'animation", de: "ein Animationsfilm", pool: [
+            "Les enfants adorent ce ___.",
+            "Ce ___ a demandé des années de travail.",
+            "Un ___ peut plaire aussi bien aux adultes.",
+            "Le ___ raconte l'histoire d'un petit robot.",
+            "Ce studio est célèbre pour ses ___ magnifiques."
+          ] },
+          { fr: "une action", de: "eine Handlung / eine Tat", pool: [
+            "L'___ de ce film se passe à Paris.",
+            "Ce film d'___ est plein de poursuites.",
+            "Chaque ___ a des conséquences importantes.",
+            "L'___ du roman avance très lentement.",
+            "Une seule ___ courageuse peut tout changer."
+          ] },
+          { fr: "opprimer qn", de: "jdn. unterdrücken", pool: [
+            "Dans ce film, on ___ le peuple sans pitié.",
+            "Un régime injuste cherche à ___ les citoyens.",
+            "Il est interdit d'___ les plus faibles.",
+            "Le dictateur voulait ___ toute opposition.",
+            "Ce système a longtemps ___ une partie de la population."
+          ] },
+          { fr: "un peuple", de: "ein Volk", pool: [
+            "Dans ce film, on opprime le ___.",
+            "Le ___ s'est révolté contre le roi.",
+            "Un ___ libre choisit lui-même ses dirigeants.",
+            "Ce ___ a une histoire très ancienne.",
+            "Le bonheur d'un ___ dépend de la paix."
+          ] },
+          { fr: "un couple", de: "ein (Liebes-)Paar / ein (Ehe-)Paar", pool: [
+            "Ce ___ est marié depuis vingt ans.",
+            "Le film raconte l'histoire d'un jeune ___.",
+            "Ce ___ d'acteurs joue souvent ensemble.",
+            "Un ___ heureux sait communiquer.",
+            "Le ___ s'est rencontré pendant un festival."
+          ] },
+          { fr: "se révolter (contre qn / qc)", de: "sich gegen jdn. / etw. auflehnen", pool: [
+            "Le peuple se ___ contre l'injustice.",
+            "Les élèves vont se ___ contre cette nouvelle règle.",
+            "Elle a décidé de se ___ contre cette décision.",
+            "Beaucoup de gens se ___ quand on les opprime.",
+            "Il s'est ___ contre les ordres de son chef."
+          ] },
+          { fr: "un scénario", de: "ein Drehbuch", pool: [
+            "Le ___ de ce film est vraiment original.",
+            "Elle a écrit le ___ en seulement trois mois.",
+            "Un bon ___ est la base d'un grand film.",
+            "Ce ___ contient beaucoup de scènes d'action.",
+            "Le réalisateur a modifié plusieurs fois le ___."
+          ] },
+          { fr: "un cœur", de: "ein Herz", pool: [
+            "Son ___ battait très fort avant l'entrée en scène.",
+            "Il a un ___ généreux et plein de bonté.",
+            "Cette histoire d'amour m'a touché en plein ___.",
+            "Le héros écoute toujours son ___.",
+            "Elle a dessiné un grand ___ rouge sur la carte."
+          ] },
+          { fr: "avoir un coup de cœur (pour qn / qc)", de: "sich verlieben / sein Herz an etw. verlieren", pool: [
+            "J'ai tout de suite eu un ___ pour ce film.",
+            "Elle a eu un ___ pour cette petite maison.",
+            "Il a eu un vrai ___ pour ce tableau.",
+            "Nous avons eu un ___ pour ce restaurant.",
+            "Le jury a eu un ___ pour ce jeune acteur."
+          ] },
+          { fr: "une comédie dramatique", de: "eine Tragikomödie", pool: [
+            "Une ___ est un drame et une comédie à la fois.",
+            "Ce film est une ___ très réussie.",
+            "J'aime les ___ qui font rire et pleurer.",
+            "Cette ___ aborde un sujet sérieux avec humour.",
+            "Le réalisateur est connu pour ses ___."
+          ] },
+          { fr: "un éducateur / une éducatrice", de: "ein Erzieher / eine Erzieherin", pool: [
+            "Un ___ aide les jeunes des quartiers difficiles.",
+            "Cette ___ travaille dans un centre pour adolescents.",
+            "Le rôle d'un ___ est d'accompagner les jeunes.",
+            "Une ___ patiente sait écouter les enfants.",
+            "Ce ___ organise des activités tous les après-midi."
+          ] },
+          { fr: "autiste", de: "autistisch", pool: [
+            "Le personnage principal du film est ___.",
+            "Un enfant ___ perçoit le monde différemment.",
+            "Ce documentaire explique bien ce que signifie être ___.",
+            "Sa sœur ___ a une mémoire extraordinaire.",
+            "Le film montre le quotidien d'un jeune homme ___."
+          ] },
+          { fr: "défavorisé / défavorisée", de: "benachteiligt / sozial schwach", pool: [
+            "Ces jeunes sont issus de quartiers ___.",
+            "Le projet aide les familles les plus ___.",
+            "Un milieu ___ rend les études plus difficiles.",
+            "Cette association soutient les enfants ___.",
+            "Le film parle d'un quartier très ___ de la ville."
+          ] },
+          { fr: "critiquer qn / qc", de: "jdn. / etw. kritisieren", pool: [
+            "C'est un film qui ___ notre société.",
+            "Il est facile de ___, plus difficile d'agir.",
+            "Elle n'aime pas qu'on ___ son travail.",
+            "Ce journaliste ose ___ les puissants.",
+            "On peut ___ une idée sans attaquer la personne."
+          ] },
+          { fr: "un handicapé / une handicapée", de: "ein Mensch mit Behinderung", pool: [
+            "Le film raconte le combat d'un ___ courageux.",
+            "Cette place est réservée à une personne ___.",
+            "Un ___ rencontre encore beaucoup d'obstacles au quotidien.",
+            "L'association aide les ___ à trouver un emploi.",
+            "Le héros, un ___, réalise son rêve malgré tout."
+          ] },
+          { fr: "un sujet", de: "ein Thema", pool: [
+            "Le ___ de ce film est très intéressant.",
+            "Nous avons longuement discuté de ce ___.",
+            "Ce ___ d'actualité fait débat partout.",
+            "Le professeur a choisi un ___ difficile.",
+            "Changeons de ___, celui-ci est trop triste."
+          ] },
+          { fr: "un genre", de: "eine Gattung / eine Art", pool: [
+            "C'est le plus grand festival de ce ___ en France.",
+            "La comédie est mon ___ de film préféré.",
+            "Ce ___ de musique ne me plaît pas du tout.",
+            "Chaque ___ littéraire a ses propres règles.",
+            "Le réalisateur mélange plusieurs ___ dans ce film."
+          ] },
+          { fr: "une fiche technique", de: "technische Daten", pool: [
+            "La ___ donne la durée et le budget du film.",
+            "Consulte la ___ avant d'acheter l'appareil.",
+            "Cette ___ contient toutes les informations utiles.",
+            "La ___ du film indique le nom du réalisateur.",
+            "Remplis la ___ avec les caractéristiques du produit."
+          ] },
+          { fr: "un réalisateur / une réalisatrice", de: "ein (Film-)Regisseur / eine (Film-)Regisseurin", pool: [
+            "Ce ___ a gagné un prix au festival de Cannes.",
+            "La ___ a travaillé deux ans sur ce film.",
+            "Un bon ___ sait diriger ses acteurs.",
+            "Cette ___ est connue dans le monde entier.",
+            "Le ___ explique sa vision pendant l'interview."
+          ] },
+          { fr: "la date de sortie (d'un film)", de: "der Filmstart", pool: [
+            "Tu connais la ___ de ce film ?",
+            "La ___ a été repoussée à l'été prochain.",
+            "Tout le monde attend la ___ avec impatience.",
+            "La ___ du film est fixée au mois de décembre.",
+            "On a annoncé la ___ lors du festival."
+          ] },
+          { fr: "un film policier", de: "ein Kriminalfilm / ein Krimi", pool: [
+            "Tu aimes les ___ ? – Non, je préfère les comédies.",
+            "Ce ___ tient le spectateur en haleine.",
+            "Dans ce ___, un inspecteur cherche le coupable.",
+            "Elle regarde un ___ tous les vendredis soirs.",
+            "Ce ___ a un final vraiment surprenant."
+          ] },
+          { fr: "un film fantastique", de: "ein Fantasyfilm", pool: [
+            "Ce ___ se passe dans un monde imaginaire.",
+            "Les enfants adorent ce ___ plein de magie.",
+            "Un ___ permet de rêver et de s'évader.",
+            "Ce ___ mélange dragons et créatures étranges.",
+            "Le décor de ce ___ est absolument incroyable."
+          ] },
+          { fr: "la science-fiction", de: "die Science-Fiction", pool: [
+            "Ce film de ___ se passe dans le futur.",
+            "La ___ imagine souvent des voyages dans l'espace.",
+            "Il lit surtout des romans de ___.",
+            "La ___ pose des questions sur notre avenir.",
+            "Ce classique de la ___ a marqué des générations."
+          ] },
+          { fr: "un documentaire", de: "ein Dokumentarfilm", pool: [
+            "Sur Arte, on peut voir des ___ intéressants.",
+            "Ce ___ explique la vie des animaux sauvages.",
+            "Un bon ___ nous apprend beaucoup de choses.",
+            "Elle prépare un ___ sur le changement climatique.",
+            "Ce ___ a nécessité trois ans de tournage."
+          ] },
+          { fr: "un résumé", de: "eine Zusammenfassung / eine Inhaltsangabe", pool: [
+            "Tu peux me lire le ___ du film ?",
+            "Fais un court ___ de l'histoire en cinq lignes.",
+            "Ce ___ donne envie de voir le film.",
+            "Le ___ ne révèle heureusement pas la fin.",
+            "Elle a écrit un ___ très clair du livre."
+          ] },
+          { fr: "il s'agit de qc", de: "es handelt sich um etw.", pool: [
+            "Dans ce film, il s'___ d'une histoire d'amitié.",
+            "De quoi s'___-il dans ce documentaire ?",
+            "Il s'___ d'un sujet très important pour les jeunes.",
+            "Dans ce roman, il s'___ d'un voyage extraordinaire.",
+            "Il s'___ surtout de comprendre les autres."
+          ] },
+          { fr: "personnel / personnelle", de: "persönlich", pool: [
+            "C'était ma décision ___.",
+            "Il a partagé une histoire très ___.",
+            "Garde tes affaires ___ dans ton casier.",
+            "Ce choix est strictement ___.",
+            "Elle a donné son avis ___ sur le film."
+          ] },
+          { fr: "ennuyeux / ennuyeuse", de: "langweilig", pool: [
+            "Ce documentaire était vraiment ___.",
+            "Le début du film est un peu ___.",
+            "Une longue attente est toujours ___.",
+            "Ce cours me semble parfois ___.",
+            "Le scénario est trop ___ pour me plaire."
+          ] },
+          { fr: "le suspense", de: "die Spannung", pool: [
+            "Ce film policier est plein de ___.",
+            "Le ___ monte jusqu'à la dernière minute.",
+            "J'adore le ___ de ce genre d'histoires.",
+            "Le réalisateur maîtrise parfaitement le ___.",
+            "Il y a trop peu de ___ dans ce film."
+          ] }
+        ]
       }
     ]
   },
